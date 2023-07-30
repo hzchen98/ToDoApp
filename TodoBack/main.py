@@ -161,7 +161,7 @@ def init_scheduler():
     scheduler.add_job(check_list_len, 'cron', day='*/1')
     scheduler.start()
 
-if __name__ == '__main__':
+if __name__ == 'ToDoBack.main':
 
     # Create DB tables
     models.Base.metadata.create_all(bind=engine)
