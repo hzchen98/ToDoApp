@@ -16,9 +16,6 @@ from crud import get_session, create_session, get_items
 from db import SessionLocal, engine
 from schemas import SessionSchema
 
-# Create DB tables
-models.Base.metadata.create_all(bind=engine)
-
 app = FastAPI()
 
 origins = [
@@ -27,6 +24,8 @@ origins = [
     "http://localhost:5173",
     "*"
 ]
+
+logger = logging.getLogger()
 
 app.add_middleware(
     CORSMiddleware,
@@ -43,6 +42,8 @@ app.add_middleware(SessionMiddleware, secret_key="todo-session",
                    session_cookie=SESSION_COOKIE_NAME,
                    max_age=None, )
 
+ITEM_DOCS_TAG = "Item"
+
 
 # Dependency for start a session of DB
 def get_db():
@@ -52,8 +53,6 @@ def get_db():
     finally:
         db.close()
 
-
-ITEM_DOCS_TAG = "Item"
 
 
 # Dependency to check enabled session when requesting to resources
@@ -147,8 +146,6 @@ async def readiness(db: Session = Depends(get_db)):
         db.close()
 
 
-logger = logging.getLogger()
-
 
 def check_list_len():
     logger.info("************** Start Scheduled task: check expired sessions **************")
@@ -163,3 +160,8 @@ def init_scheduler():
     scheduler = BackgroundScheduler()
     scheduler.add_job(check_list_len, 'cron', day='*/1')
     scheduler.start()
+
+if __name__ == '__main__':
+
+    # Create DB tables
+    models.Base.metadata.create_all(bind=engine)

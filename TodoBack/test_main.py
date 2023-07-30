@@ -1,10 +1,11 @@
-from main import app, SESSION_COOKIE_NAME, get_db
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
 
-from models import  Base
+from models import Base
+from main import app, SESSION_COOKIE_NAME, get_db
+
 
 SQLALCHEMY_DATABASE_URL = "sqlite://"
 
