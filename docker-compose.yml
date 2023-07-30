@@ -21,6 +21,9 @@ services:
     environment:
       MYSQL_HOST: db
       MYSQL_PORT: 3306
+      MYSQL_USER: app
+      MYSQL_PASS: app
+      MYSQL_DB: basf-todo-app
     volumes:
       - ./TodoBack:/app
     depends_on:
