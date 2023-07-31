@@ -8,13 +8,7 @@
         </q-card-section>
 
         <q-card-actions>
-          <q-btn
-            label="Add Task"
-            @click="addTask"
-            icon="add"
-            class="q-mx-auto"
-            color="primary"
-          />
+          <q-btn label="Add Task" @click="addTask" icon="add" class="q-mx-auto" color="primary" />
         </q-card-actions> </q-card
     ></q-expansion-item>
     <q-item v-for="(task, index) in tasks" :key="index">
@@ -35,8 +29,9 @@
 <script setup lang="ts">
 import type Task from '@/models/Task'
 import { ref } from 'vue'
+import { useQuasar } from 'quasar'
 
-const props = defineProps({
+defineProps({
   tasks: { type: Array<Task>, required: true }
 })
 
@@ -47,10 +42,15 @@ const deleteTask = (task: Task) => {
 }
 
 const newTask = ref({} as Task)
+const $q = useQuasar()
 
 const addTask = () => {
-  $emit('addTask', newTask.value)
-  newTask.value = {} as Task
+  if (!newTask.value.title) {
+    $q.notify('Title is required for new task!')
+  } else {
+    $emit('addTask', newTask.value)
+    newTask.value = {} as Task
+  }
 }
 
 const updateTask = (task: Task) => {
