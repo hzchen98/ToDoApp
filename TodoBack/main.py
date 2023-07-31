@@ -1,5 +1,6 @@
 import datetime
 import logging
+import os
 import uuid
 from typing import Annotated, Union
 
@@ -161,7 +162,6 @@ def init_scheduler():
     scheduler.add_job(check_list_len, 'cron', day='*/1')
     scheduler.start()
 
-if __name__ in ('ToDoBack.main', 'main'):
-
+if not os.getenv('IS_TEST', ''):
     # Create DB tables
     models.Base.metadata.create_all(bind=engine)

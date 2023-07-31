@@ -2,6 +2,10 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
+import os
+
+os.environ['IS_TEST'] = 'true'
+
 
 from models import Base
 from main import app, SESSION_COOKIE_NAME, get_db
