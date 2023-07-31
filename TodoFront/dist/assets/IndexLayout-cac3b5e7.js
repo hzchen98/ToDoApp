@@ -1,1 +1,0 @@
-import{Q as r}from"./QPageContainer-9e5c38c3.js";import{Q as a}from"./QLayout-2a9eaefe.js";import{_ as n,r as c,c as s,w as e,o as _,a as o}from"./index-ff7293ef.js";const f={};function i(u,l){const t=c("router-view");return _(),s(a,{view:"hHh lpR fFf"},{default:e(()=>[o(r,null,{default:e(()=>[o(t)]),_:1})]),_:1})}const w=n(f,[["render",i]]);export{w as default};
